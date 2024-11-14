@@ -2,27 +2,31 @@ import Papa from 'papaparse';
 
 export const fetchTradersData = async () => {
   try {
-    // Fetch the CSV data from the published Google Sheet
-    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRA1SdNBISsalvQKW-Vp-Gh-aD1ftjM2EjSXXJX25uT5YFqm5-RgapgUe_P2-A2rxYvb4gyybE_hq79/pub?output=csv');
-    const csvData = await response.text();
-    
-    // Parse the CSV data into JSON
-    const { data } = Papa.parse(csvData, { header: true, skipEmptyLines: true });
+    // Fetch the CSV data from Google Sheets
+    const response = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vSI6pTPirfHEXgXtq-fQjxRuDeGBmreYLJ24oDpHEdgd3Ip09rN_ckp_W591rYHfWHlyZ055D47I7jY/pub?output=csv');
+    const csvText = await response.text();
 
-    // Map the parsed data into structured format
-    const parsedData = data.map(row => ({
-      Name: row.Name || 'N/A',  // Fallback for missing Name
-      TradingStyle: row.TradingStyle || 'Not Provided',  // Fallback for missing TradingStyle
-      Streaks: isNaN(parseInt(row.Streaks, 10)) ? 0 : parseInt(row.Streaks, 10),  // Ensure Streaks is a valid number
-      Alerts: isNaN(parseInt(row.Alerts, 10)) ? 0 : parseInt(row.Alerts, 10),  // Ensure Alerts is a valid number
-      Trades: isNaN(parseInt(row.Trades, 10)) ? 0 : parseInt(row.Trades, 10),  // Ensure Trades is a valid number
-      AvgGain: isNaN(parseFloat(row.AvgGain)) ? 0 : parseFloat(row.AvgGain),  // Ensure AvgGain is a valid number (float)
-      Xscore: isNaN(parseInt(row.Xscore, 10)) ? 0 : parseInt(row.Xscore, 10),  // Ensure Xscore is a valid number
-      Rank: isNaN(parseInt(row.Rank, 10)) ? 0 : parseInt(row.Rank, 10),  // Ensure Rank is a valid number
-      Trophies: row.Trophies || 'None',  // Fallback for missing Trophies
+    // Parse the CSV data to JSON using PapaParse
+    const parsedData = Papa.parse(csvText, {
+      header: true, // This treats the first row as the header
+      skipEmptyLines: true,
+      dynamicTyping: (header) => header === 'Streaks' || header === 'Alerts' || header === 'Trades' || header === 'Xscore' || header === 'Rank' // Parse these columns as numbers
+    });
+
+    // Map the data to the correct structure and handle specific formats
+    const structuredData = parsedData.data.map(row => ({
+      Name: row['Name'],
+      TradingStyle: row['Trading Style'],
+      Streaks: parseInt(row['Streaks'], 10),
+      Alerts: parseInt(row['Alerts'], 10),
+      Trades: parseInt(row['Trades'], 10),
+      AvgGain: row['Avg Gain'] ? parseFloat(row['Avg Gain']) / 100 : 0, // Remove '%' and parse without multiplying by 100
+      Xscore: parseInt(row['Xscore'], 10),
+      Rank: parseInt(row['Rank'], 10),
+      Trophies: row['Trophies'], // Assuming Trophies is a string or mixed type
     }));
 
-    return parsedData;
+    return structuredData;
   } catch (error) {
     console.error("Error loading or parsing CSV file:", error);
     return [];

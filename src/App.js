@@ -64,7 +64,7 @@ const App = () => {
       {/* Foreground "Champions" heading */}
       <Box sx={{ textAlign: 'center', color: 'grey', mb: 4, position: 'relative', zIndex: 1 }}>
         <Typography variant="h3" fontWeight="bold">
-          Champions
+          LEADERBOARD
         </Typography>
       </Box>
 
