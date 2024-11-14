@@ -1,0 +1,138 @@
+/* Basic layout styling */
+.App {
+  text-align: center;
+  background-color: #f5f7fa;
+  /* Light grey for the main background */
+  min-height: 100vh;
+  padding: 20px;
+}
+
+body {
+  font-family: 'Inter', 'SF Pro', 'Roboto', sans-serif;
+}
+
+/* App header styling */
+.App-header {
+  background-color: #1a1f24;
+  /* Dark background for the header */
+  color: #ffffff;
+  padding: 20px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* Add shadow for separation */
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Button link styling */
+.App-link {
+  color: #4caf50;
+  /* Green color for links */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.App-link:hover {
+  color: #66bb6a;
+}
+
+/* Table styling */
+.MuiTable-root {
+  background-color: #ffffff;
+  border-radius: 12px;
+  /* Adjust radius as needed */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  /* Ensure the rounded corners apply to the entire table */
+}
+
+.MuiTableCell-root {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333333;
+  /* Dark text for readability */
+  padding: 12px;
+}
+
+.MuiTableHead-root {
+  background-color: #1a1f24;
+  /* Darker background for the table header */
+}
+
+.MuiTableCell-head {
+  color: #ffffff;
+  /* White text for table headers */
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Highlight top ranks */
+.Top-rank {
+  background-color: #ffeb3b;
+  /* Yellow for the top rank */
+}
+
+.Second-rank {
+  background-color: #ffcc80;
+  /* Orange for the second rank */
+}
+
+.Third-rank {
+  background-color: #a5d6a7;
+  /* Green for the third rank */
+}
+
+/* Avatar styling */
+.Avatar-icon {
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  border: 2px solid #4caf50;
+  /* Border around avatars */
+}
+
+/* Card styling for each trader */
+.TraderCard {
+  padding: 16px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.TraderCard:hover {
+  transform: translateY(-5px);
+  /* Subtle lift on hover */
+}
+
+/* Profile button styling */
+.Profile-button {
+  background-color: #4caf50;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: none;
+  margin-top: 10px;
+}
+
+.Profile-button:hover {
+  background-color: #66bb6a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .App-header {
+    font-size: 1.25rem;
+  }
+
+  .MuiTableCell-root {
+    font-size: 0.85rem;
+  }
+
+  .TraderCard {
+    padding: 12px;
+  }
+}
